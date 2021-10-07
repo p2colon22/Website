@@ -1,0 +1,109 @@
+<html>
+<head>
+<script language="JavaScript">
+
+var picList = [ "images/slideshow/slideIntro.jpg" , 
+				"images/slideshow/slide1BoJack.jpg" , 
+				"images/slideshow/slide1Diane.jpg" ,
+				"images/slideshow/slide1Carolyn.jpg" ,
+				"images/slideshow/slide1Todd.jpg" ,
+				"images/slideshow/slide1PeanutButter.jpg" ]
+
+var clipList = [ "sounds/audioThemeSong.mp3" ,
+				"sounds/audioBoJack.mp3" ,
+				"sounds/audioDiane.mp3" ,
+				"sounds/audioCarolyn.mp3" ,
+				"sounds/audioTodd.mp3" ,
+				"sounds/audioPeanutButter.mp3" ]
+
+
+
+
+var counter = 0;
+var timer;
+var startTimer = false;
+function next()
+{
+	//alert("Hello");
+	document.getElementById("player").src = clipList[counter];
+	document.getElementById("player").play();
+	
+	document.getElementById("display").src = picList[counter] ;
+	increment();
+}
+
+
+function run()
+{
+
+	
+	//alert("Hello there");
+if( startTimer == false )
+	{
+	startTimer = true;
+	document.getElementById("runButton").value = "Pause"
+	}
+	else
+	{
+		startTimer = false;
+		document.getElementById("runButton").value = "Run Slideshow"
+	}
+	
+	autoDisplay()
+}
+
+function autoDisplay()
+{
+	if( startTimer == true )
+	{
+		next();
+		
+		var clipLength = clipList[counter].length;
+		//alert(clipLength)
+		
+		document.getElementById("display").value = picList[counter];
+
+		timer = setTimeout("autoDisplay()", 10000);
+		
+	}
+	else
+	{
+		clearTimeout(timer);
+	}
+}
+
+function increment()
+{
+if( counter == picList.length-1)
+{
+counter = 0;
+
+}
+else
+{
+	
+	counter++
+}
+}
+</script>
+</head>
+<body>
+<center>
+<h1> The Bojack Horseman Show </h1>
+
+<a href="index.html">Click here to return to my home page.</a>
+
+
+<br/><br/>
+<input type="button" value="Next Picture" onclick="next()"/>
+<input type="button" value="Run Slideshow" onclick="run()" id="runButton"/>
+
+<br/><br/>
+
+<img src="images/slideshow/slideIntro.jpg" id="display"/>
+
+<audio id = "player"></audio>
+</center>
+
+</body>
+</html>
